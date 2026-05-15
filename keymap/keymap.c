@@ -17,17 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-
-// ### Layers ###
-enum {
-    TEXT,
-    I3,
-    I3_OPERATIONS,
-    NAVIGATE,
-    NUMBERS_SYMBOLS,
-    FUNCTIONS_NUMPAD,
-    SPECIAL,
-};
+#include "layers/layers_change.h"
+#include "layers/layers.h"
 
 // ### Combos ### 
 enum combo_events {
@@ -48,6 +39,11 @@ enum tap_dance_events {
     TD_DQUO_QUOT,
     TD_SLSH_QUES,
     TD_LSFT_CAPS,
+    
+    // Layer change
+    TD_LC_FUNCTIONS_NUMPAD,
+    TD_LC_NUMBERS_SYMBOLS,
+    TD_LC_NAVIGATE,
 };
 
 const uint16_t PROGMEM semicolon_combo[] = { KC_COMM, KC_DOT, COMBO_END };
@@ -56,8 +52,6 @@ combo_t key_combos[] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-    // if (!record->event.pressed) return true;
 
     switch (keycode) {
         case KC_CCED:
@@ -95,10 +89,49 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+// tap_dance_layer_t td_x_navigate = {
+//     .keycode = KC_X,
+//     .layer = NAVIGATE,
+// };
+
+// void functions_numpad_layer_finished(tap_dance_state_t *state, void *user_data) {
+//     if (state->count == 1) {
+//         if (state->pressed) {
+//             layer_on(FUNCTIONS_NUMPAD);
+//         } else {
+//             tap_code(KC_Z);
+//         }
+//     } else if (state->count == 2) {
+//         layer_invert(FUNCTIONS_NUMPAD);
+//     }
+// }
+
+// void functions_numpad_layer_reset(tap_dance_state_t *state, void *user_data) {
+//     if (state->count == 1 && state->pressed) {
+//         layer_off(FUNCTIONS_NUMPAD);
+//     }
+// }
+
 tap_dance_action_t tap_dance_actions[] = {
     [TD_DQUO_QUOT] = ACTION_TAP_DANCE_DOUBLE(KC_DQUO, KC_QUOT),
     [TD_SLSH_QUES] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_QUES),
     [TD_LSFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
+    
+    // Layer change
+    [TD_LC_FUNCTIONS_NUMPAD] = {
+        .fn = {
+            .on_each_tap = NULL,
+            .on_dance_finished = tap_dance_layer_finished,
+            .on_reset = tap_dance_layer_reset,
+        }, .user_data = &td_lc_functions_numpad,
+    },
+    // [TD_LC_NUMBERS_SYMBOLS] = {
+    //     .fn = {
+    //         .on_each_tap = NULL,
+    //         .on_dance_finished = tap_dance_layer_finished,
+    //         .on_reset = tap_dance_layer_reset,
+    //     }, .user_data = &td_lc_numbers_symbols,
+    // },
 };
 
 // ----------------------------------------------------------------    ----------------------------------------------------------------
@@ -118,9 +151,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //----------------------------------------------------------------    ----------------------------------------------------------------
         KC_TAB,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,  KC_TILD,     KC_ACUTE,  KC_H,  KC_J,  KC_K,  KC_L,TD(TD_DQUO_QUOT), KC_DEL,
     //----------------------------------------------------------------    ----------------------------------------------------------------
-    TD(TD_LSFT_CAPS),LT(FUNCTIONS_NUMPAD,KC_Z), KC_X, KC_C, KC_V, KC_B,         KC_N,  KC_M, KC_COMM, KC_DOT,TD(TD_SLSH_QUES),MO(SPECIAL),
+    TD(TD_LSFT_CAPS),TD(TD_LC_FUNCTIONS_NUMPAD), KC_X, KC_C, KC_V, KC_B,          KC_N, KC_M, KC_COMM, KC_DOT, TD(TD_SLSH_QUES),MO(SPECIAL),
     //----------------------------------------------------------------    ----------------------------------------------------------------
-                                    KC_LCTL, LM(I3, MOD_LGUI), KC_SPC,      KC_ENT, MO(NAVIGATE), MO(NUMBERS_SYMBOLS)
+                                    KC_LCTL, LM(I3, MOD_LGUI), KC_SPC,      KC_ENT, MO(NAVIGATE), TD(TD_LC_NUMBERS_SYMBOLS)
     ),
 
     [I3] = LAYOUT_split_3x6_3_ex2(
@@ -160,20 +193,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //----------------------------------------------------------------    ----------------------------------------------------------------
          KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,   KC_5,  KC_EXLM,      XXXXXXX,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
     //----------------------------------------------------------------    ----------------------------------------------------------------
-        KC_PIPE, KC_SLSH, KC_ASTR, KC_MINS, KC_PLUS, KC_COLN, KC_AMPR,      XXXXXXX,  KC_DLR, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR,  KC_DEL,
+        KC_PIPE,   KC_AT, KC_ASTR, KC_MINS, KC_PLUS, KC_COLN, KC_AMPR,      XXXXXXX,  KC_DLR, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR,  KC_DEL,
     //----------------------------------------------------------------    ----------------------------------------------------------------
-        KC_PERC,  KC_AT,  KC_HASH, KC_CCED, KC_UNDS,  KC_DOT,                        KC_COMM, KC_LPRN, KC_RPRN,   KC_LT,   KC_GT, KC_NUBS,
+        KC_PERC, KC_SLSH, KC_HASH, KC_CCED, KC_UNDS,  KC_DOT,                        KC_COMM, KC_LPRN, KC_RPRN,   KC_LT,   KC_GT, KC_NUBS,
     //----------------------------------------------------------------    ----------------------------------------------------------------
                                             KC_EQL, XXXXXXX,  KC_SPC,      KC_ENT, XXXXXXX, XXXXXXX
     ),
 
     [FUNCTIONS_NUMPAD] = LAYOUT_split_3x6_3_ex2(
     //----------------------------------------------------------------    ----------------------------------------------------------------
-          KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6, XXXXXXX,      XXXXXXX, KC_PLUS,   KC_7,     KC_8,   KC_9,  KC_ASTR, XXXXXXX,
+          KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6, XXXXXXX,      XXXXXXX, KC_PLUS,   KC_7,     KC_8,   KC_9,  KC_ASTR, KC_BSPC,
     //----------------------------------------------------------------    ----------------------------------------------------------------
-          KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12, XXXXXXX,      XXXXXXX, KC_MINS,   KC_4,     KC_5,   KC_6,  KC_SLSH, XXXXXXX,
+          KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12, XXXXXXX,      XXXXXXX, KC_MINS,   KC_4,     KC_5,   KC_6,  KC_SLSH,  KC_DEL,
     //----------------------------------------------------------------    ----------------------------------------------------------------
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                         KC_DOT,   KC_1,     KC_2,   KC_3,   KC_EQL, XXXXXXX,
+        XXXXXXX,TD(TD_LC_FUNCTIONS_NUMPAD),XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,              KC_DOT,   KC_1,     KC_2,   KC_3,   KC_EQL, XXXXXXX,
     //----------------------------------------------------------------    ----------------------------------------------------------------
                                             XXXXXXX, XXXXXXX, KC_SPC,       KC_ENT, KC_COMM,  KC_0
     ),

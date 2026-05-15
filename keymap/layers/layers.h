@@ -1,0 +1,10 @@
+// ### Layers ###
+enum {
+    TEXT,
+    I3,
+    I3_OPERATIONS,
+    NAVIGATE,
+    NUMBERS_SYMBOLS,
+    FUNCTIONS_NUMPAD,
+    SPECIAL,
+};
