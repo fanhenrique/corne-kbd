@@ -8,4 +8,4 @@ EXTRAKEY_ENABLE = yes
 
 
 SRC += \
-layers/layers_change.c
+layers/tap_dance_layers.c

@@ -1,4 +1,3 @@
-// ### Layers ###
 enum {
     TEXT,
     I3,
