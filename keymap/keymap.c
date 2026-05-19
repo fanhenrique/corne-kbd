@@ -179,9 +179,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //----------------------------------------------------------------    ----------------------------------------------------------------
          KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,   KC_5,  KC_EXLM,      XXXXXXX,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
     //----------------------------------------------------------------    ----------------------------------------------------------------
-        KC_PIPE,   KC_AT, KC_ASTR, KC_MINS, KC_PLUS, KC_COLN, KC_AMPR,      XXXXXXX,  KC_DLR, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR,  KC_DEL,
+         KC_TAB,   KC_AT, KC_ASTR, KC_MINS, KC_PLUS, KC_COLN, KC_AMPR,      KC_PIPE,  KC_DLR, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR,  KC_DEL,
     //----------------------------------------------------------------    ----------------------------------------------------------------
-        KC_PERC, KC_SLSH, KC_HASH, KC_CCED, KC_UNDS,  KC_DOT,                        KC_COMM, KC_LPRN, KC_RPRN,   KC_LT,   KC_GT, KC_NUBS,
+        KC_PERC, KC_HASH, KC_SLSH, KC_CCED, KC_UNDS,  KC_DOT,                        KC_COMM, KC_LPRN, KC_RPRN,   KC_LT,   KC_GT, KC_NUBS,
     //----------------------------------------------------------------    ----------------------------------------------------------------
                                             KC_EQL, XXXXXXX,  KC_SPC,      KC_ENT, XXXXXXX, TD(TDL_NUMBERS_SYMBOLS)
     ),
