@@ -1,6 +1,6 @@
 // Internal imports
-#include "./layers.h"
-#include "./tap_dance_layers.h"
+#include "../layers.h"
+#include "tap_dance_layers.h"
 
 void tap_dance_layer_finished(tap_dance_state_t *state, void *user_data) {
 
@@ -42,7 +42,7 @@ void tap_dance_layer_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 tap_dance_layer_t tdl_functions_numpad = {
-    .keycode = KC_Z,
+    .keycode = KC_CIRC,
     .layer = FUNCTIONS_NUMPAD,
     .hold = true,
     .double_tap = true,
