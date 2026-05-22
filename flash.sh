@@ -2,6 +2,31 @@
 
 set -e
 
+# Enable debug mode with --debug
+DEBUG=false
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --debug)
+            DEBUG=true
+            shift
+            ;;
+        *)
+            printf "Unknown parameter: %s\n" "$1"
+            exit 1
+            ;;
+    esac
+done
+
+# Helper function to optionally suppress output
+run_cmd() {
+    if $DEBUG; then
+        "$@"
+    else
+        "$@" > /dev/null
+    fi
+}
+
 # Local keymap directory
 KEYMAP_DIR="./keymap"
 
@@ -17,10 +42,10 @@ MOUNT_POINT="/media/$USER/RPI-RP2"
 # Wait for RPI-RP2 to enter BOOTLOADER (UF2) mode
 wait_for_bootloader() {
     printf "\n==> Waiting for RPI-RP2 to enter BOOTLOADER mode (press QK_BOOTLOADER or QK_BOOT)...\n"
-    
+
     # Timeout: ~30s
     for i in {1..300}; do
-        # Detect block device with label RPI-RP2  
+        # Detect block device with label RPI-RP2
         DEVICE=$(lsblk -nr -o NAME,LABEL | awk '$2=="RPI-RP2" {print "/dev/"$1}')
         [[ -n "$DEVICE" ]] && break
         sleep 0.1
@@ -53,7 +78,7 @@ fi
 
 # Compile firmware
 printf "\n==> Compiling QMK firmware...\n\n"
-if ! qmk compile --keyboard "$KEYBOARD" --keymap "$KEYMAP" > /dev/null; then
+if ! run_cmd qmk compile --keyboard "$KEYBOARD" --keymap "$KEYMAP"; then
     printf "\n==> ERROR: QMK compilation failed\n"
     exit 1
 fi
@@ -63,13 +88,15 @@ wait_for_bootloader
 
 # Mount RPI-RP2
 printf "\n==> Mounting device...\n"
-if ! udisksctl mount -b "$DEVICE" > /dev/null; then
+if ! run_cmd udisksctl mount -b "$DEVICE"; then
     printf "\n==> ERROR: Mount operation failed for device %s\n" "$DEVICE"
     exit 1
 fi
+
 while [ ! -d "$MOUNT_POINT" ]; do
     sleep 0.1
 done
+
 printf "\n==> Mounted at %s\n" "$MOUNT_POINT"
 
 # Flash UF2 firmware
@@ -77,13 +104,13 @@ KB_SAFE="${KEYBOARD//\//_}"
 UF2="$QMK_DIR/${KB_SAFE}_${KEYMAP}.uf2"
 
 printf "\n==> Flashing firmware: %s\n" "$UF2"
+
 if ! cp "$UF2" "$MOUNT_POINT/"; then
     printf "\n==> ERROR: Failed to copy firmware file %s\n" "$UF2"
     exit 1
 fi
 
-# Write on the disc (RPI-RP2)
-# Ensure data is fully written
+# Ensure data is fully written in RPI-RP2
 sync
 
 wait_for_reboot
