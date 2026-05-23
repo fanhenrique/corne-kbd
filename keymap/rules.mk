@@ -8,4 +8,6 @@ EXTRAKEY_ENABLE = yes
 
 SRC += \
 tap_dance/tap_dance.c \
-tap_dance/tap_dance_layers.c
+tap_dance/tap_dance_layers.c \
+features/combos.c \
+features/custom.c

@@ -21,63 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Internal imports
 #include "layers.h"
 #include "tap_dance/tap_dance.h"
-
-// ### Combos ### 
-enum combo_events {
-    COMBO_SEMICOLON,
-};
-
-// ### Custom keys ###
-enum custom_keycodes {
-    KC_CCED = SAFE_RANGE,
-    KC_ACUTE,
-    KC_MICM,
-    KC_MICU,
-    KC_MICD,
-};
-
-const uint16_t PROGMEM semicolon_combo[] = { KC_COMM, KC_DOT, COMBO_END };
-combo_t key_combos[] = {
-    [COMBO_SEMICOLON] = COMBO(semicolon_combo, KC_SCLN),
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-    switch (keycode) {
-        case KC_CCED:
-            if (!record->event.pressed){
-                tap_code16(RALT(KC_COMM));
-                tap_code(KC_C);
-            }
-            return false;
-            
-        case KC_ACUTE:
-            if (!record->event.pressed){
-                tap_code16(RALT(KC_QUOT));
-            }
-            return false;
-        
-        case KC_MICM: // Mute the microphone volume
-            if (!record->event.pressed){
-                tap_code16(KC_F20);
-            }
-            return false;
-
-        case KC_MICU: // Up the microphone volume
-            if (!record->event.pressed){
-                tap_code16(KC_F14);
-            }
-            return false;
-
-        case KC_MICD: // Down the microphone volume
-            if (!record->event.pressed){
-                tap_code16(KC_F15);
-            }
-            return false;
-    }
-
-    return true;
-}
+#include "custom/combos.h"
+#include "custom/custom.h"
 
 // ----------------------------------------------------------------    ----------------------------------------------------------------
 //   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
