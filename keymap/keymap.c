@@ -21,8 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Internal imports
 #include "layers.h"
 #include "tap_dance/tap_dance.h"
-#include "custom/combos.h"
-#include "custom/custom.h"
+#include "features/combos.h"
+#include "features/custom.h"
 
 // ----------------------------------------------------------------    ----------------------------------------------------------------
 //   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
