@@ -69,3 +69,9 @@ tap_dance_layer_t tdl_special = {
     .double_tap = true,
 };
 
+tap_dance_layer_t tdl_mouse = {
+    .keycode = KC_GRV,
+    .layer = MOUSE,
+    .hold = false,
+    .double_tap = true,
+};

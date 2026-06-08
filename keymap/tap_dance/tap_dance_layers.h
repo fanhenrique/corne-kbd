@@ -21,3 +21,4 @@ extern tap_dance_layer_t tdl_functions_numpad;
 extern tap_dance_layer_t tdl_numbers_symbols;
 extern tap_dance_layer_t tdl_navigate;
 extern tap_dance_layer_t tdl_special;
+extern tap_dance_layer_t tdl_mouse;

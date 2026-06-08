@@ -5,6 +5,7 @@ TAP_DANCE_ENABLE = yes
 # CUT, PAST, UNDO ...
 EXTRAKEY_ENABLE = yes
 
+MOUSEKEY = yes
 
 SRC += \
 tap_dance/tap_dance.c \

@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [TEXT] = LAYOUT_split_3x6_3_ex2(
     //----------------------------------------------------------------    ----------------------------------------------------------------
-        KC_ESC, KC_Q, KC_W, KC_E, KC_R, KC_T,TD(TDL_FUNCTIONS_NUMPAD),       KC_GRV,   KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSPC,
+        KC_ESC, KC_Q, KC_W, KC_E, KC_R, KC_T,TD(TDL_FUNCTIONS_NUMPAD),     TD(TDL_MOUSE), KC_Y, KC_U,  KC_I,   KC_O,  KC_P, KC_BSPC,
     //----------------------------------------------------------------    ----------------------------------------------------------------
         KC_TAB,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,  KC_TILD,     KC_ACUTE,  KC_H,  KC_J,  KC_K,  KC_L,TD(TD_DQUO_QUOT), KC_DEL,
     //----------------------------------------------------------------    ----------------------------------------------------------------
@@ -77,6 +77,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        KC_PGDN,  KC_APP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     //----------------------------------------------------------------    ----------------------------------------------------------------
                                            XXXXXXX, KC_LGUI,  KC_SPC,      KC_ENT, TD(TDL_NAVIGATE), XXXXXXX
+    ),
+
+    [MOUSE] = LAYOUT_split_3x6_3_ex2(
+    //----------------------------------------------------------------    ----------------------------------------------------------------
+         KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    TD(TDL_MOUSE), MS_BTN3, MS_BTN1, MS_UP, MS_BTN2, XXXXXXX, XXXXXXX,
+    //----------------------------------------------------------------    ----------------------------------------------------------------
+         KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, MS_WHLU, MS_LEFT, MS_DOWN,MS_RGHT, XXXXXXX, XXXXXXX,
+    //----------------------------------------------------------------    ----------------------------------------------------------------
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        MS_WHLD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    //----------------------------------------------------------------    ----------------------------------------------------------------
+                                        XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, TO(TEXT)
     ),
 
     [NUMBERS_SYMBOLS] = LAYOUT_split_3x6_3_ex2(

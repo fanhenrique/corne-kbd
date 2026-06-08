@@ -6,4 +6,5 @@ enum {
     NUMBERS_SYMBOLS,
     FUNCTIONS_NUMPAD,
     SPECIAL,
+    MOUSE,
 };
