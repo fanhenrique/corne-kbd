@@ -28,4 +28,11 @@ tap_dance_action_t tap_dance_actions[TD_COUNT] = {
             .on_reset = tap_dance_layer_reset,
         }, .user_data = &tdl_navigate,
     },
+    [TDL_SPECIAL] = {
+        .fn = {
+            .on_each_tap = NULL,
+            .on_dance_finished = tap_dance_layer_finished,
+            .on_reset = tap_dance_layer_reset,
+        }, .user_data = &tdl_special,
+    },
 };

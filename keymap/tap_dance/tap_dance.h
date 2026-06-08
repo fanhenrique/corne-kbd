@@ -16,6 +16,7 @@ enum tap_dance_events {
     TDL_FUNCTIONS_NUMPAD,
     TDL_NUMBERS_SYMBOLS,
     TDL_NAVIGATE,
+    TDL_SPECIAL,
 
     // Tap dance counter
     TD_COUNT

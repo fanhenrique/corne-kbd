@@ -44,7 +44,7 @@ void tap_dance_layer_reset(tap_dance_state_t *state, void *user_data) {
 tap_dance_layer_t tdl_functions_numpad = {
     .keycode = KC_CIRC,
     .layer = FUNCTIONS_NUMPAD,
-    .hold = true,
+    .hold = false,
     .double_tap = true,
 };
 
@@ -61,3 +61,11 @@ tap_dance_layer_t tdl_navigate = {
     .hold = true,
     .double_tap = true,
 };
+
+tap_dance_layer_t tdl_special = {
+    .keycode = KC_LALT,
+    .layer = SPECIAL,
+    .hold = false,
+    .double_tap = true,
+};
+
