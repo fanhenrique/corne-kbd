@@ -7,10 +7,10 @@
 
 enum tap_dance_events {
     
-    // Simple tap dance
-    TD_DQUO_QUOT,
-    TD_SLSH_QUES,
-    TD_LSFT_CAPS,
+    // Tap Dance Key - TDK
+    TDK_DQUO_QUOT,
+    TDK_SLSH_QUES,
+    TDK_LSFT_CAPS,
     
     // Tap Dance Layer - TDL
     TDL_FUNCTIONS_NUMPAD,

@@ -39,9 +39,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //----------------------------------------------------------------    ----------------------------------------------------------------
         KC_ESC, KC_Q, KC_W, KC_E, KC_R, KC_T,TD(TDL_FUNCTIONS_NUMPAD),     TD(TDL_MOUSE), KC_Y, KC_U,  KC_I,   KC_O,  KC_P, KC_BSPC,
     //----------------------------------------------------------------    ----------------------------------------------------------------
-        KC_TAB,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,  KC_TILD,     KC_ACUTE,  KC_H,  KC_J,  KC_K,  KC_L,TD(TD_DQUO_QUOT), KC_DEL,
+        KC_TAB,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,  KC_TILD,     KC_ACUTE,  KC_H,  KC_J,  KC_K,  KC_L,TD(TDK_DQUO_QUOT), KC_DEL,
     //----------------------------------------------------------------    ----------------------------------------------------------------
-    TD(TD_LSFT_CAPS), KC_Z, KC_X, KC_C, KC_V,    KC_B,                   KC_N,  KC_M,KC_COMM, KC_DOT,TD(TD_SLSH_QUES), TD(TDL_SPECIAL),
+    TD(TDK_LSFT_CAPS), KC_Z, KC_X,   KC_C,    KC_V,    KC_B,                   KC_N,  KC_M,KC_COMM, KC_DOT,TD(TDK_SLSH_QUES),TD(TDL_SPECIAL),
     //----------------------------------------------------------------    ----------------------------------------------------------------
                                     KC_LCTL, LM(I3, MOD_LGUI), KC_SPC,      KC_ENT, TD(TDL_NAVIGATE), TD(TDL_NUMBERS_SYMBOLS)
     ),
