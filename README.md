@@ -6,43 +6,44 @@ This keymap assumes the use of the International keyboard layout at the operatin
 
 Using a different keyboard layout may result in incorrect characters.
 
-### Debian / Ubuntu / Derivatives
+### Keyboard
 
-Generate the [`keyboard`](./keyboard) configuration file using the standard Debian tool and select an international keyboard layout when prompted:
+Replace the `/etc/default/keyboard` file with the provided [`keyboard`](./keyboard/keyboard) file, then restart the service:
+
+```bash
+sudo cp ./keyboard/keyboard /etc/default/keyboard
+sudo service keyboard-setup restart
+```
+
+Alternatively, you can generate the `/etc/default/keyboard` configuration file using the standard Debian tool. When prompted, select an international keyboard layout that matches the provided keymap:
 
 ```bash
 sudo dpkg-reconfigure keyboard-configuration
 sudo service keyboard-setup restart
 ```
 
-Alternatively, you can copy the provided [`keyboard`](./keyboard) file directly to `/etc/default/` and restart the service:
+> Important: Make sure the selected layout is an international standard layout that matches the keymap.
 
-```bash
-sudo cp keyboard /etc/default/keyboard
-sudo service keyboard-setup restart
-```
-
-Important: Make sure the selected layout is an international standard layout to match the keymap.
-
-> See the Debian Wiki for more information: https://wiki.debian.org/Keyboard
+> See the [`Debian Wiki`](.https://wiki.debian.org/Keyboard) for more information.
 
 ### Remap keys
 
-Change this line in `/usr/share/X11/xkb/symbols/us` file.
+Replace the `/usr/share/X11/xkb/symbols/` file with the provided [`us`](./keyboard/us) file.
 
 ```bash
-# remove
-key <AC11> { [ dead_acute, dead_diaeresis, apostrophe, quotedbl ] };
-
-# add
-key <AC11> { [ apostrophe,  quotedbl, dead_acute, dead_diaeresis ] };
+sudo cp keyboard/us /usr/share/X11/xkb/symbols/us
 ```
 
-Alternatively, you can copy the [`us`](./us) file directly to `/usr/share/X11/xkb/symbols/`
+> The following key definition has been changed:
+>
+> ```bash
+> # remove
+> key <AC11> { [ dead_acute, dead_diaeresis, apostrophe, quotedbl ] };
+>
+> # add
+> key <AC11> { [ apostrophe,  quotedbl, dead_acute, dead_diaeresis ] };
+> ```
 
-```bash
-sudo cp us /usr/share/X11/xkb/symbols/
-```
 
 ## Layer Overview
 
