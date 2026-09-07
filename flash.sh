@@ -2,14 +2,36 @@
 
 set -e
 
-# Enable debug mode with --debug
-DEBUG=false
+# Enable verbose mode with -v or --verbose
+VERBOSE=false
+
+usage() {
+    cat <<EOF
+Usage: $(basename "$0") [OPTIONS]
+
+Compile and flash QMK firmware to a connected RPI-RP2 device.
+
+Options:
+    -v, --verbose   Show command output during execution
+    -h, --help      Show this help message and exit
+
+Examples:
+    $(basename "$0")
+    $(basename "$0") --verbose
+    $(basename "$0") --help
+EOF
+}
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        --debug)
-            DEBUG=true
+
+        -v|--verbose)
+            VERBOSE=true
             shift
+            ;;
+        -h|--help)
+            usage
+            exit 0
             ;;
         *)
             printf "Unknown parameter: %s\n" "$1"
@@ -20,7 +42,7 @@ done
 
 # Helper function to optionally suppress output
 run_cmd() {
-    if $DEBUG; then
+    if $VERBOSE; then
         "$@"
     else
         "$@" > /dev/null
@@ -46,7 +68,7 @@ wait_for_bootloader() {
     # Timeout: ~30s
     for i in {1..300}; do
         # Detect block device with label RPI-RP2
-        DEVICE=$(lsblk -nr -o NAME,LABEL | awk '$2=="RPI-RP2" {print "/dev/"$1}')
+        DEVICE=$(lsblk -nr -o NAME,LABEL | awk '$2=="RPI-RP2" {print "/dev/"$1; exit}')
         [[ -n "$DEVICE" ]] && break
         sleep 0.1
     done
