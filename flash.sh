@@ -22,6 +22,25 @@ Examples:
 EOF
 }
 
+check_dependencies() {
+    local dependencies=(
+        qmk
+        udisksctl
+        lsblk
+        awk
+        grep
+        cp
+        sync
+    )
+
+    for command in "${dependencies[@]}"; do
+        if ! command -v "$command" >/dev/null 2>&1; then
+            printf "ERROR: Required command not found: %s\n" "$command" >&2
+            exit 1
+        fi
+    done
+}
+
 while [[ $# -gt 0 ]]; do
     case "$1" in
 
@@ -39,6 +58,8 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
+
+check_dependencies
 
 # Helper function to optionally suppress output
 run_cmd() {
