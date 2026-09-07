@@ -1,7 +1,7 @@
 enum {
     TEXT,
-    I3,
-    I3_OPERATIONS,
+    OS,
+    OPERATIONS,
     NAVIGATE,
     NUMBERS_SYMBOLS,
     FUNCTIONS_NUMPAD,
