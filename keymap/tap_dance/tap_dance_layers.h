@@ -2,12 +2,20 @@
 
 #include QMK_KEYBOARD_H
 
+typedef enum {
+    LAYER_INVERT,
+    LAYER_MOVE,
+} tap_dance_layer_action_t;
+
+
 typedef struct {
     uint16_t keycode;
     uint8_t layer;
 
     bool hold;       // activate the layer by holding
     bool double_tap; // activate/deactivate with double tap
+
+    tap_dance_layer_action_t action;
 
     bool holding;    // internal state
     
