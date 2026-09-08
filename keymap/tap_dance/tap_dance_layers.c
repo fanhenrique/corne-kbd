@@ -26,7 +26,7 @@ void tap_dance_layer_finished(tap_dance_state_t *state, void *user_data) {
     // Double Tap
     else if (state->count == 2) {
         if (config->double_tap) {
-            layer_invert(config->layer);
+            layer_move(config->layer);
         }
     }
 }
@@ -41,8 +41,15 @@ void tap_dance_layer_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
+tap_dance_layer_t tdl_text = {
+    .keycode = KC_NO,
+    .layer = TEXT,
+    .hold = false,
+    .double_tap = true,
+};
+
 tap_dance_layer_t tdl_functions_numpad = {
-    .keycode = KC_CIRC,
+    .keycode = KC_NO,
     .layer = FUNCTIONS_NUMPAD,
     .hold = false,
     .double_tap = true,
@@ -63,14 +70,14 @@ tap_dance_layer_t tdl_navigate = {
 };
 
 tap_dance_layer_t tdl_special = {
-    .keycode = KC_LALT,
+    .keycode = KC_NO,
     .layer = SPECIAL,
     .hold = false,
     .double_tap = true,
 };
 
 tap_dance_layer_t tdl_mouse = {
-    .keycode = KC_GRV,
+    .keycode = KC_NO,
     .layer = MOUSE,
     .hold = false,
     .double_tap = true,

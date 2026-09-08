@@ -9,6 +9,13 @@ tap_dance_action_t tap_dance_actions[TD_COUNT] = {
     [TDK_LSFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
     
     // Tap Dance Layer - TDL
+    [TDL_TEXT] = {
+        .fn = {
+            .on_each_tap = NULL,
+            .on_dance_finished = tap_dance_layer_finished,
+            .on_reset = tap_dance_layer_reset,
+        }, .user_data = &tdl_text,
+    },
     [TDL_FUNCTIONS_NUMPAD] = {
         .fn = {
             .on_each_tap = NULL,
