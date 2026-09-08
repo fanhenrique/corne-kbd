@@ -1,5 +1,5 @@
 enum {
-    TEXT,
+    BASE,
     OS,
     OPERATIONS,
     NAVIGATE,

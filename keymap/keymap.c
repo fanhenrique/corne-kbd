@@ -17,7 +17,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    [TEXT] = LAYOUT_split_3x6_3_ex2(
+    [BASE] = LAYOUT_split_3x6_3_ex2(
     //----------------------------------------------------------------    ----------------------------------------------------------------
         KC_ESC,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,  KC_CIRC,       KC_GRV, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     //----------------------------------------------------------------    ----------------------------------------------------------------
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [NAVIGATE] = LAYOUT_split_3x6_3_ex2(
     //----------------------------------------------------------------    ----------------------------------------------------------------
-        KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, KC_HOME,   KC_UP, KC_END, XXXXXXX,  KC_BSPC,
+        KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      TD(TDL_TEXT), XXXXXXX, KC_HOME,   KC_UP, KC_END, XXXXXXX,  KC_BSPC,
     //----------------------------------------------------------------    ----------------------------------------------------------------
         KC_TAB, XXXXXXX, KC_LALT, KC_LSFT, KC_LCTL, XXXXXXX, XXXXXXX,      XXXXXXX, KC_PGUP, KC_LEFT, KC_DOWN,KC_RIGHT, XXXXXXX,  KC_DEL, 
     //----------------------------------------------------------------    ----------------------------------------------------------------
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [NUMBERS_SYMBOLS] = LAYOUT_split_3x6_3_ex2(
     //----------------------------------------------------------------    ----------------------------------------------------------------
-         KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,   KC_5,  KC_EXLM,    TD(TDL_TEXT),    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
+         KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,   KC_5,  KC_EXLM,    TD(TDL_TEXT),  KC_6,   KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
     //----------------------------------------------------------------    ----------------------------------------------------------------
          KC_TAB,   KC_AT, KC_ASTR, KC_MINS, KC_PLUS, KC_COLN, KC_AMPR,      KC_COMM,  KC_DLR, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR,  KC_DEL,
     //----------------------------------------------------------------    ----------------------------------------------------------------
