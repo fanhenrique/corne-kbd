@@ -1,5 +1,7 @@
 #include QMK_KEYBOARD_H
 
+#include "raw_hid.h"
+
 // Internal imports
 #include "layers.h"
 #include "tap_dance/tap_dance.h"
@@ -14,6 +16,21 @@
 //   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 // ----------------------------------------------------------------    ----------------------------------------------------------------
 //                                       XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX,
+
+
+layer_state_t layer_state_set_user(layer_state_t state)
+{
+    uint8_t layer = get_highest_layer(state);
+
+    uint8_t data[32] = {0};
+
+    data[24] = 0x90;
+    data[25] = layer;
+
+    raw_hid_send(data, 32);
+
+    return state;
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
