@@ -1,24 +1,26 @@
+#define _GNU_SOURCE
+
 #include <dirent.h>
 #include <fcntl.h>
-#include <limits.h>
-#include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
-// Internal imports
+#include <limits.h>
+#include <sys/types.h>
+
 #include "keymap/layers.h"
 
-#define VID "4653"
-#define PID "0004"
-#define INTERFACE "1"
+#define DEVICE_VID "4653"
+#define DEVICE_PID "0004"
+#define USB_INTERFACE "1"
 
-#define REPORT_SIZE 32
-#define PAYLOAD_MARK 0x90
-#define PAYLOAD_MARK_INDEX 24
-#define LAYER_INDEX 25
-
+#define HID_REPORT_SIZE 32
+#define LAYER_MARK 0x90
+#define LAYER_MARK_OFFSET 24
+#define LAYER_OFFSET 25
 
 #define DEFINE_LAYER_NAME(name) [name] = #name,
 
@@ -30,12 +32,12 @@ static const char *layer_names[] = {
 
 #define LAYER_COUNT (sizeof(layer_names) / sizeof(layer_names[0]))
 
-static char *find_hidraw(char *device_path, size_t size)
+
+static const char *find_hidraw(void)
 {
-    static char path[PATH_MAX];
+    static char device_path[PATH_MAX];
 
     DIR *dir = opendir("/dev");
-
     if (!dir)
         return NULL;
 
@@ -45,50 +47,40 @@ static char *find_hidraw(char *device_path, size_t size)
         if (strncmp(entry->d_name, "hidraw", 6) != 0)
             continue;
 
+        char sysfs_path[PATH_MAX];
+        char real_path[PATH_MAX];
+
         snprintf(
-            path,
-            sizeof(path),
+            sysfs_path,
+            sizeof(sysfs_path),
             "/sys/class/hidraw/%s/device",
             entry->d_name
         );
 
-        char real_path[PATH_MAX];
-
-        if (!realpath(path, real_path))
+        if (!realpath(sysfs_path, real_path))
             continue;
 
-        /*
-         * Verifica VID/PID
-         *
-         * Exemplo:
-         * .../0003:4653:0004.000A
-         */
         char device_id[64];
 
         snprintf(
             device_id,
             sizeof(device_id),
             ":%s:%s.",
-            VID,
-            PID
+            DEVICE_VID,
+            DEVICE_PID
         );
 
         if (!strstr(real_path, device_id))
             continue;
 
-        /*
-         * Verifica a interface USB.
-         *
-         * Exemplo:
-         * .../3-2:1.1/...
-         */
         char interface_id[32];
 
         snprintf(
             interface_id,
             sizeof(interface_id),
-            ":1.%s/",
-            INTERFACE
+            ":%s.%s/",
+            USB_INTERFACE,
+            USB_INTERFACE
         );
 
         if (!strstr(real_path, interface_id))
@@ -96,7 +88,7 @@ static char *find_hidraw(char *device_path, size_t size)
 
         snprintf(
             device_path,
-            size,
+            sizeof(device_path),
             "/dev/%s",
             entry->d_name
         );
@@ -113,48 +105,50 @@ static char *find_hidraw(char *device_path, size_t size)
 
 int main(void)
 {
-    char device[PATH_MAX];
+    const char *device = find_hidraw();
 
-    if (!find_hidraw(device, sizeof(device)))
+    if (!device) {
+        fprintf(stderr, "hidraw device not found\n");
         return 1;
+    }
 
     int fd = open(device, O_RDONLY);
 
-    if (fd < 0)
+    if (fd < 0) {
+        perror("open");
         return 1;
+    }
 
-    unsigned char report[REPORT_SIZE];
+    uint8_t report[HID_REPORT_SIZE];
+
+    static int last_layer = -1;
 
     while (1) {
-        ssize_t bytes = read(fd, report, sizeof(report));
+        ssize_t bytes_read = read(
+            fd,
+            report,
+            sizeof(report)
+        );
 
-        if (bytes <= 0)
+        if (bytes_read <= 0)
             continue;
 
-        /*
-         * Garante que temos os bytes necessários.
-         */
-        if (bytes <= LAYER_INDEX)
+        if (bytes_read < HID_REPORT_SIZE)
             continue;
 
-        /*
-         * Byte 24 = marcador 0x90
-         */
-        if (report[PAYLOAD_MARK_INDEX] != PAYLOAD_MARK)
+        if (report[LAYER_MARK_OFFSET] != LAYER_MARK)
             continue;
 
-        /*
-         * Byte 25 = número da camada
-         */
-        unsigned int layer = report[LAYER_INDEX];
+        unsigned int layer = report[LAYER_OFFSET];
 
-        /*
-         * Verifica se a camada existe.
-         */
         if (layer >= LAYER_COUNT)
             continue;
 
-        // printf("%s\n", LAYERS[layer]);
+        if ((int)layer == last_layer)
+            continue;
+
+        last_layer = layer;
+
         printf("%s\n", layer_names[layer]);
         fflush(stdout);
     }
