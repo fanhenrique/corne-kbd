@@ -41,9 +41,9 @@ void tap_dance_layer_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-tap_dance_layer_t tdl_text = {
+tap_dance_layer_t tdl_base = {
     .keycode = KC_NO,
-    .layer = TEXT,
+    .layer = BASE,
     .hold = false,
     .double_tap = true,
 };

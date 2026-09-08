@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [NAVIGATE] = LAYOUT_split_3x6_3_ex2(
     //----------------------------------------------------------------    ----------------------------------------------------------------
-        KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      TD(TDL_TEXT), XXXXXXX, KC_HOME,   KC_UP, KC_END, XXXXXXX,  KC_BSPC,
+        KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      TD(TDL_BASE), XXXXXXX, KC_HOME,   KC_UP, KC_END, XXXXXXX,  KC_BSPC,
     //----------------------------------------------------------------    ----------------------------------------------------------------
         KC_TAB, XXXXXXX, KC_LALT, KC_LSFT, KC_LCTL, XXXXXXX, XXXXXXX,      XXXXXXX, KC_PGUP, KC_LEFT, KC_DOWN,KC_RIGHT, XXXXXXX,  KC_DEL, 
     //----------------------------------------------------------------    ----------------------------------------------------------------
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [NUMBERS_SYMBOLS] = LAYOUT_split_3x6_3_ex2(
     //----------------------------------------------------------------    ----------------------------------------------------------------
-         KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,   KC_5,  KC_EXLM,    TD(TDL_TEXT),  KC_6,   KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
+         KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,   KC_5,  KC_EXLM,    TD(TDL_BASE),  KC_6,   KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
     //----------------------------------------------------------------    ----------------------------------------------------------------
          KC_TAB,   KC_AT, KC_ASTR, KC_MINS, KC_PLUS, KC_COLN, KC_AMPR,      KC_COMM,  KC_DLR, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR,  KC_DEL,
     //----------------------------------------------------------------    ----------------------------------------------------------------
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [FUNCTIONS_NUMPAD] = LAYOUT_split_3x6_3_ex2(
     //----------------------------------------------------------------    ----------------------------------------------------------------
-          KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,KC_F6,TD(TDL_FUNCTIONS_NUMPAD),   TD(TDL_TEXT), KC_PLUS,   KC_7,     KC_8,   KC_9,  KC_ASTR, KC_BSPC,
+          KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,KC_F6,TD(TDL_FUNCTIONS_NUMPAD),   TD(TDL_BASE), KC_PLUS,   KC_7,     KC_8,   KC_9,  KC_ASTR, KC_BSPC,
     //----------------------------------------------------------------    ----------------------------------------------------------------
           KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12, XXXXXXX,      XXXXXXX, KC_MINS,   KC_4,     KC_5,   KC_6,  KC_SLSH,  KC_DEL,
     //----------------------------------------------------------------    ----------------------------------------------------------------
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
      [MOUSE] = LAYOUT_split_3x6_3_ex2(
     //----------------------------------------------------------------    ----------------------------------------------------------------
-         KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    TD(TDL_TEXT), MS_BTN3, MS_BTN1, MS_UP, MS_BTN2, XXXXXXX, XXXXXXX,
+         KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    TD(TDL_BASE), MS_BTN3, MS_BTN1, MS_UP, MS_BTN2, XXXXXXX, XXXXXXX,
     //----------------------------------------------------------------    ----------------------------------------------------------------
          KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, MS_WHLU, MS_LEFT, MS_DOWN,MS_RGHT, XXXXXXX, XXXXXXX,
     //----------------------------------------------------------------    ----------------------------------------------------------------
@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    
     [SPECIAL] = LAYOUT_split_3x6_3_ex2(
     //----------------------------------------------------------------    ----------------------------------------------------------------
-       QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_REBOOT,   TD(TDL_TEXT), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,XXXXXXX,
+       QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_REBOOT,   TD(TDL_BASE), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,XXXXXXX,
     //----------------------------------------------------------------    ----------------------------------------------------------------
         RM_TOGG, RM_HUEU, RM_SATU, RM_VALU, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     //----------------------------------------------------------------    ----------------------------------------------------------------
@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-  [TEXT] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(KC_RGHT, KC_LEFT), },
+  [BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(KC_RGHT, KC_LEFT), },
   [OS] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(KC_RGHT, KC_LEFT), },
   [OPERATIONS] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(KC_RGHT, KC_LEFT), },
   [NAVIGATE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(KC_RGHT, KC_LEFT), },

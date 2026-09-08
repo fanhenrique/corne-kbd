@@ -13,7 +13,7 @@ enum tap_dance_events {
     TDK_LSFT_CAPS,
     
     // Tap Dance Layer - TDL
-    TDL_TEXT,
+    TDL_BASE,
     TDL_FUNCTIONS_NUMPAD,
     TDL_NUMBERS_SYMBOLS,
     TDL_NAVIGATE,
