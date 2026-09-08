@@ -1,10 +1,22 @@
+#ifndef LAYER_H
+#define LAYER_H
+
+#define LAYER_LIST(X) \
+    X(BASE) \
+    X(OS) \
+    X(OPERATIONS) \
+    X(NAVIGATE) \
+    X(NUMBERS_SYMBOLS) \
+    X(FUNCTIONS_NUMPAD) \
+    X(SPECIAL) \
+    X(MOUSE)
+
+#define DEFINE_LAYER(name) name,
+
 enum {
-    BASE,
-    OS,
-    OPERATIONS,
-    NAVIGATE,
-    NUMBERS_SYMBOLS,
-    FUNCTIONS_NUMPAD,
-    SPECIAL,
-    MOUSE,
+    LAYER_LIST(DEFINE_LAYER)
 };
+
+#undef DEFINE_LAYER
+
+#endif
